@@ -1,0 +1,19 @@
+.league {
+    background-color: rgb(218, 213, 213);
+    width: 75%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.league-name-box {
+    background-color: gray;
+}
+
+.league-name {
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.fixture {
+    text-align: left;
+}

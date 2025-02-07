@@ -1,11 +1,18 @@
 import { useState } from 'react'
 import './App.css'
 import Leagues from './Leagues/Leagues'
+import Calendar from './Calendar/Calendar'
 
 function App() {
   return (
-    <Leagues></Leagues>
-   
+    <div className='App'>
+      <Calendar></Calendar>
+      <Leagues></Leagues>
+      <Leagues></Leagues>
+      <Leagues></Leagues>
+      <Leagues></Leagues>
+      <Leagues></Leagues>
+    </div>
   )
 }
 
