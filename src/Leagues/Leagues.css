@@ -3,10 +3,14 @@
     width: 75%;
     height: auto;
     border-radius: 8px;
+    margin-top: 20px;
 }
 
 .league-name-box {
     background-color: gray;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .league-name {
@@ -16,4 +20,14 @@
 
 .fixture {
     text-align: left;
+    text-decoration: none;
+}
+
+.fixture-list {
+    display: flex;
+    flex-direction: row;
+}
+
+.league-redirect {
+    height: 20px;
 }
