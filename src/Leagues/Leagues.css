@@ -1,6 +1,6 @@
 .league {
     background-color: rgb(218, 213, 213);
-    width: 75%;
+    width: 50%;
     height: auto;
     border-radius: 8px;
     margin-top: 20px;
@@ -11,6 +11,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 }
 
 .league-name {
@@ -18,14 +19,34 @@
     text-align: left;
 }
 
+.league-redirect {
+   padding: 0;
+   background-color: none;
+}
+
 .fixture {
     text-align: left;
     text-decoration: none;
+    flex-direction: row;
+    display: flex;
+    gap: 10px;
 }
 
 .fixture-list {
     display: flex;
     flex-direction: row;
+}
+
+.game-time {
+    align-self: center;
+    width: 3rem;
+    text-align: center;
+}
+
+.score {
+    background-color: white;
+    width: 1rem;
+    text-align: center;
 }
 
 .league-redirect {
