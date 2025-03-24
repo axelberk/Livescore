@@ -40,10 +40,10 @@ const Calendar = () => {
 
   return (
     <div className="Calendar">
-      <a href="" className="calendar-arrow" onClick={previousDay}>
+      <a className="calendar-arrow" onClick={previousDay}>
         <ArrowLeftIcon></ArrowLeftIcon>
       </a>
-      <a href="" className="calendar-arrow" onClick={nextDay}>
+      <a className="calendar-arrow" onClick={nextDay}>
         <ArrowRightIcon></ArrowRightIcon>
       </a>
       <a href="" className="clickable-calendar" onClick={toggleModal}>
@@ -56,7 +56,6 @@ const Calendar = () => {
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <h3>Select a date</h3>
             <input type="date" onChange={handleDateChange}/>
-            <button onClick={toggleModal}>Close</button>
           </div>
         </div>
       )}
