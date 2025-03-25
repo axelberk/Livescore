@@ -5,16 +5,15 @@
   import Match from "./Match/Match";
 
   function App() {
+    const [selectedDate, setSelectedDate] = useState(new Date())
     return (
       <div className="App">
-        <Calendar />
-        <div className="content-container"> {/* Apply the class here */}
+        <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>
+        <div className="content-container">
           <div className="league-container">
-            <Leagues />
-            <Leagues />
-            <Leagues />
-            <Leagues />
-            <Leagues />
+            <Leagues leagueId="4328" selectedDate={selectedDate}/>
+            <Leagues leagueId="4331" selectedDate={selectedDate}/>
+            <Leagues leagueId="4335" selectedDate={selectedDate}/>
           </div>
           <Match />
         </div>

@@ -1,64 +1,37 @@
-import "./Calendar.css";
 import { useState } from "react";
+import "./Calendar.css";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
-const Calendar = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [selectedDate, setSelectedDate] = useState(new Date())
-
-  const toggleModal = (e) => {
-    e.preventDefault()
-    setIsOpen(!isOpen)
-  }
-
-  const formatDate = (date) => {
-    return date.toISOString().split("T")[0]
-  }
+const Calendar = ({ selectedDate, setSelectedDate }) => {
+  const formatDate = (date) => date.toISOString().split("T")[0];
 
   const handleDateChange = (e) => {
-    setSelectedDate(new Date(e.target.value))
-    setIsOpen(false)
-  }
+    setSelectedDate(new Date(e.target.value));
+  };
 
-  const previousDay = () => {
-    setSelectedDate((prevDate) => {
-      const newDate = new Date(prevDate)
-      newDate.setDate(newDate.getDate() - 1)
-      return newDate
-    })
-  }
+  const goToPreviousDay = () => {
+    setSelectedDate((prevDate) => new Date(prevDate.setDate(prevDate.getDate() - 1)));
+  };
 
-  const nextDay = () => {
-    setSelectedDate((prevDate) => {
-      const newDate = new Date(prevDate)
-      newDate.setDate(newDate.getDate() + 1)
-      return newDate
-    })
-  }
+  const goToNextDay = () => {
+    setSelectedDate((prevDate) => new Date(prevDate.setDate(prevDate.getDate() + 1)));
+  };
 
   return (
     <div className="Calendar">
-      <a className="calendar-arrow" onClick={previousDay}>
-        <ArrowLeftIcon></ArrowLeftIcon>
+      <button className="calendar-arrow" onClick={goToPreviousDay}>
+        <ArrowLeftIcon />
+      </button>
+      <a href="#" className="clickable-calendar" onClick={(e) => e.preventDefault()}>
+        <CalendarMonthIcon />
+        <span>{formatDate(selectedDate)}</span>
       </a>
-      <a className="calendar-arrow" onClick={nextDay}>
-        <ArrowRightIcon></ArrowRightIcon>
-      </a>
-      <a href="" className="clickable-calendar" onClick={toggleModal}>
-      <CalendarMonthIcon></CalendarMonthIcon>
-      <span>{formatDate(selectedDate)}</span>
-      </a>
-
-      {isOpen && (
-        <div className="calendar-modal" onClick={toggleModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h3>Select a date</h3>
-            <input type="date" onChange={handleDateChange}/>
-          </div>
-        </div>
-      )}
+      <button className="calendar-arrow" onClick={goToNextDay}>
+        <ArrowRightIcon />
+      </button>
+      <input type="date" value={formatDate(selectedDate)} onChange={handleDateChange} />
     </div>
   );
 };
