@@ -4,9 +4,19 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 const Leagues = ({leagueId, selectedDate}) => {
   const [fixtures, setFixtures] = useState([])
-  const [teams, setTeams] = useState([])
+  const [leagueName, setLeagueName] = useState("")
   
 useEffect(() => {
+  const fetchLeagueName = async () => {
+    try {
+      const response = await fetch(`https://www.thesportsdb.com/api/v1/json/3/lookupleague.php?id=${leagueId}`)
+      const data = await response.json()
+      setLeagueName(data.leagues?.[0]?.strLeague || "Unknown League")
+    } catch (error) {
+      console.error("Error fetching league name:", error)
+    }
+  } 
+
   const fetchFixtures = async () => {
     const formattedDate = selectedDate.toISOString().split("T")[0]
     const url = `https://www.thesportsdb.com/api/v1/json/3/eventsday.php?d=${formattedDate}&l=${leagueId}`
@@ -19,17 +29,14 @@ useEffect(() => {
       console.error("Error fetching fixtures")
     }
   }
-  // fetch("https://www.thesportsdb.com/api/v1/json/3/search_all_teams.php?l=English%20Premier%20League")
-  //   .then((response) => response.json())
-  //   .then((data) => setTeams(data.teams))
-  //   .catch((error) => console.error("Error fetching data:", error));
+  fetchLeagueName()
   fetchFixtures()
 }, [leagueId, selectedDate]);
 
 
   return (
       <div className="league">
-      <h3>Fixtures for League {leagueId}</h3>
+      <h3>{leagueName}</h3>
       {fixtures.length === 0 ? (
         <p>No matches on this date.</p>
       ) : (
