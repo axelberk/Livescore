@@ -4,35 +4,33 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 const Leagues = ({leagueId, selectedDate}) => {
   const [fixtures, setFixtures] = useState([])
-  const [leagueName, setLeagueName] = useState("")
+  const [leagueName, setLeagueName] = useState("Loading...")
   
-useEffect(() => {
-  const fetchLeagueName = async () => {
-    try {
-      const response = await fetch(`https://www.thesportsdb.com/api/v1/json/3/lookupleague.php?id=${leagueId}`)
-      const data = await response.json()
-      setLeagueName(data.leagues?.[0]?.strLeague || "Unknown League")
-    } catch (error) {
-      console.error("Error fetching league name:", error)
-    }
-  } 
+  useEffect(() => {
+    const fetchLeagueName = async () => {
+      try {
+        const response = await fetch(
+          "https://www.thesportsdb.com/api/v1/json/3/all_leagues.php"
+        );
+        const data = await response.json();
 
-  const fetchFixtures = async () => {
-    const formattedDate = selectedDate.toISOString().split("T")[0]
-    const url = `https://www.thesportsdb.com/api/v1/json/3/eventsday.php?d=${formattedDate}&l=${leagueId}`
+        console.log("All Leagues Data:", data); 
 
-    try {
-      const response = await fetch(url)
-      const data = await response.json()
-      setFixtures(data.events || [])
-    } catch (error) {
-      console.error("Error fetching fixtures")
-    }
-  }
-  fetchLeagueName()
-  fetchFixtures()
-}, [leagueId, selectedDate]);
+        if (data.leagues) {
+          const foundLeague = data.leagues.find(
+            (league) => league.idLeague === leagueId
+          );
 
+          setLeagueName(foundLeague ? foundLeague.strLeague : "Unknown League");
+        }
+      } catch (error) {
+        console.error("Error fetching league name:", error);
+        setLeagueName("Error Loading");
+      }
+    };
+
+    fetchLeagueName();
+  }, [leagueId]);
 
   return (
       <div className="league">

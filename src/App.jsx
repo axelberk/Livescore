@@ -12,8 +12,12 @@
         <div className="content-container">
           <div className="league-container">
             <Leagues leagueId="4328" selectedDate={selectedDate}/>
-            <Leagues leagueId="4331" selectedDate={selectedDate}/>
+            <Leagues leagueId="4347" selectedDate={selectedDate}/>
             <Leagues leagueId="4335" selectedDate={selectedDate}/>
+            <Leagues leagueId="4332" selectedDate={selectedDate}/>
+            <Leagues leagueId="4334" selectedDate={selectedDate}/>
+            <Leagues leagueId="4331" selectedDate={selectedDate}/>
+            <Leagues leagueId="4337" selectedDate={selectedDate}/>
           </div>
           <Match />
         </div>
