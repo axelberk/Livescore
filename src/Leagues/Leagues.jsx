@@ -5,6 +5,11 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 const Leagues = ({leagueId, selectedDate}) => {
   const [fixtures, setFixtures] = useState([])
   const [leagueName, setLeagueName] = useState("Loading...")
+
+  const formatDate = (date) => {
+    return date.toISOString().split("T")[0];
+  };
+
   
   useEffect(() => {
     const fetchLeagueName = async () => {
@@ -32,15 +37,36 @@ const Leagues = ({leagueId, selectedDate}) => {
     fetchLeagueName();
   }, [leagueId]);
 
+  useEffect(() => {
+    const fetchFixtures = async () => {
+      if (!leagueName || leagueName === "Loading...") return
+
+      const dateStr = formatDate(selectedDate)
+      const encodedLeagueName = encodeURIComponent(leagueName)
+
+      try {
+        const response = await fetch(
+          `https://www.thesportsdb.com/api/v1/json/3/eventsday.php?d=${dateStr}&l=${encodedLeagueName}`
+        )
+        const data = await response.json()
+
+        setFixtures(data.events || [])
+      } catch (error) {
+        console.error("Error fetching fixtures", error);
+      }
+    }
+    fetchFixtures()
+  }, [leagueName, selectedDate])
+
   return (
       <div className="league">
       <h3>{leagueName}</h3>
       {fixtures.length === 0 ? (
-        <p>No matches on this date.</p>
+        <p>No fixtures found.</p>
       ) : (
         fixtures.map((match) => (
           <div key={match.idEvent} className="fixture">
-            <span>{match.strEvent}</span>
+            <span>{match.strHomeTeam} vs {match.strAwayTeam}</span>
             <span>{match.strTime}</span>
           </div>
         ))
